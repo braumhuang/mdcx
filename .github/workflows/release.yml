@@ -7,9 +7,9 @@ on:
     branches:
       - dev
     tags:
-      - 120*
-  schedule:
-    - cron: "0 21 * * *"
+      - 20*
+#  schedule:
+#    - cron: "0 21 * * *"
   workflow_dispatch:
     inputs:
       tag:
@@ -18,7 +18,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.9"
-  IS_DAILY: ${{ !startsWith(github.ref, 'refs/tags/120') && github.ref == 'refs/heads/master' }}
+  IS_DAILY: ${{ !startsWith(github.ref, 'refs/tags/20') }}
   IS_DEV: ${{ github.ref == 'refs/heads/dev' }}
 
 jobs:
@@ -85,7 +85,7 @@ jobs:
 
           # win7, x86_64, python3.8
           if [[ -n "${{ vars.BUILD_FOR_WINDOWS_LEGACY }}" ]]; then
-            items+=('{"build": "windows", "os": "windows-2019", "arch": "x86_64", "python": "3.8", "tail": "-legacy"}')
+            items+=('{"build": "windows", "os": "windows-2022", "arch": "x86_64", "python": "3.8", "tail": "-legacy"}')
           fi
 
           # 合并items到json数组

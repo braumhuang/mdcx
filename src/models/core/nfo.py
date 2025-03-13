@@ -6,6 +6,7 @@ import traceback
 import langid
 from lxml import etree
 
+from bridge.string import Comma
 from ..base.file import delete_file, split_path
 from ..base.number import deal_actor_more, get_number_first_letter, get_number_letters
 from ..base.utils import convert_path, get_used_time
@@ -412,7 +413,7 @@ def get_nfo_data(
     if originaltitle:
         for key, value in ManualConfig.SPECIAL_WORD.items():
             originaltitle_amazon = originaltitle_amazon.replace(value, key)
-    actor = ",".join(xml_nfo.xpath("//actor/name/text()"))
+    actor = Comma.join(xml_nfo.xpath("//actor/name/text()"))
     originalplot = "".join(xml_nfo.xpath("//originalplot/text()"))
     outline = ""
     temp_outline = re.findall(r"<plot>(.+)</plot>", content)
@@ -426,7 +427,7 @@ def get_nfo_data(
                 outline = outline.replace(temp_from[0], "")
                 json_data["outline_from"] = temp_from[0].replace("<br>  <br>由 ", "").replace(" 提供翻译", "")
             outline = outline.replace(originalplot, "").replace("<br>  <br>", "")
-    tag = ",".join(xml_nfo.xpath("//tag/text()"))
+    tag = Comma.join(xml_nfo.xpath("//tag/text()"))
     release = "".join(xml_nfo.xpath("//release/text()"))
     if not release:
         release = "".join(xml_nfo.xpath("//releasedate/text()"))
@@ -488,7 +489,7 @@ def get_nfo_data(
             if each_key in each_tag:
                 only_tag_list.remove(each_tag)
                 break
-    json_data["tag_only"] = ",".join(only_tag_list)
+    json_data["tag_only"] = Comma.join(only_tag_list)
 
     # 获取本地图片路径
     poster_path_1 = convert_path(os.path.splitext(file_path)[0] + "-poster.jpg")

@@ -416,7 +416,7 @@ class WebRequests:
         for i in range(int(retry_times)):
             try:
                 response = self.curl_session.get(
-                    url_encode(url), headers=headers, cookies=cookies, proxies=proxies, impersonate="chrome120"
+                    url_encode(url), headers=headers, cookies=cookies, proxies=proxies, impersonate="chrome107"
                 )
                 if "amazon" in url:
                     response.encoding = "Shift_JIS"
@@ -752,7 +752,7 @@ def ping_host(host_address):
 
 def check_version():
     if config.update_check:
-        url = "https://api.github.com/repos/sqzw-x/mdcx/releases/latest"
+        url = "https://api.github.com/repos/braumhuang/mdcx/releases/latest"
         _, res_json = get_html(url, json_data=True)
         if isinstance(res_json, dict):
             try:

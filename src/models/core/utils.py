@@ -13,6 +13,7 @@ import traceback
 import unicodedata
 from typing import Optional
 
+from bridge.typing import LIST, SET, DICT, TUPLE
 from ..base.file import read_link, split_path
 from ..base.number import deal_actor_more, get_number_first_letter, get_number_letters
 from ..base.path import get_path
@@ -75,7 +76,7 @@ def show_movie_info(json_data: JsonData):
 has_ffprobe = True if shutil.which("ffprobe") else False
 
 
-def _get_video_metadata_opencv(file_path: str) -> tuple[int, str]:
+def _get_video_metadata_opencv(file_path: str) -> TUPLE[int, str]:
     cap = cv2.VideoCapture(file_path)
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     ##使用opencv获取编码器格式
@@ -84,7 +85,7 @@ def _get_video_metadata_opencv(file_path: str) -> tuple[int, str]:
     return height, codec_fourcc
 
 
-def _get_video_metadata_ffmpeg(file_path: str) -> tuple[int, str]:
+def _get_video_metadata_ffmpeg(file_path: str) -> TUPLE[int, str]:
     if not has_ffprobe:
         raise RuntimeError("当前版本无 opencv. 若想获取视频分辨率请请安装 ffprobe 或改用带 opencv 版本.")
     # Use ffprobe to get video information
@@ -211,7 +212,7 @@ def show_data_result(json_data: JsonData, start_time: float):
         return True
 
 
-def deal_url(url: str) -> tuple[Optional[str], str]:
+def deal_url(url: str) -> TUPLE[Optional[str], str]:
     if "://" not in url:
         url = "https://" + url
     url = url.strip()
@@ -345,7 +346,7 @@ def deal_some_field(json_data: JsonData) -> JsonData:
     return json_data
 
 
-def get_movie_path_setting(file_path="") -> tuple[str, str, str, list[str], str, str]:
+def get_movie_path_setting(file_path="") -> TUPLE[str, str, str, LIST[str], str, str]:
     # 先把'\'转成'/'以便判断是路径还是目录
     movie_path = config.media_path.replace("\\", "/")  # 用户设置的扫描媒体路径
     if movie_path == "":  # 未设置为空时，使用用户数据目录

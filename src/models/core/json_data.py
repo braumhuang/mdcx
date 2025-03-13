@@ -1,6 +1,7 @@
 import threading
 from typing import TypedDict
 
+from bridge.typing import LIST, SET, DICT, TUPLE
 
 class LogBuffer:
     all_buffers = {}
@@ -73,13 +74,13 @@ class MoveContext(TypedDict):
 class ImageContext(TypedDict):
     cd_part: str
 
-    cover_size: tuple[int, int]
+    cover_size: TUPLE[int, int]
     poster_big: bool
     image_cut: str
     # poster_marked: bool
     # thumb_marked: bool
     # fanart_marked: bool
-    cover_list: list[tuple[str, str]]
+    cover_list: LIST[TUPLE[str, str]]
     poster_path: str
     thumb_path: str
     fanart_path: str
@@ -94,7 +95,7 @@ class ImageContext(TypedDict):
 
 class ActorData(TypedDict):
     actor: str
-    actor_amazon: list[str]
+    actor_amazon: LIST[str]
     actor_href: str
     all_actor: str
     actor_photo: str

@@ -67,7 +67,7 @@ def get_publisher(html):
 
 
 def get_release(html):
-    result = html.xpath('//div[@class="view_timer"]//span[text()="配信開始日"]/following-sibling::p[1]/text()')
+    result = html.xpath('//span[contains(text(), "配信日")]/following-sibling::*//text()')
     return result[0].replace("/", "-") if result else ""
 
 
