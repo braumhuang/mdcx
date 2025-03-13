@@ -9,6 +9,7 @@ import traceback
 
 from PIL import Image
 
+from bridge.typing import LIST, SET, DICT, TUPLE
 from ..base.file import check_pic, move_file, split_path
 from ..base.utils import convert_path, get_used_time
 from ..config.manager import config
@@ -183,7 +184,7 @@ def _add_to_pic(
             move_file(temp_pic_path, pic_path)
 
 
-def add_mark_thread(pic_path: str, mark_list: list[str]):
+def add_mark_thread(pic_path: str, mark_list: LIST[str]):
     mark_size = config.mark_size
     mark_fixed = config.mark_fixed
     mark_pos = config.mark_pos

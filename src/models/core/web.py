@@ -13,6 +13,7 @@ from typing import Optional, cast
 
 from lxml import etree
 
+from bridge.typing import LIST, SET, DICT, TUPLE
 from ..base.file import copy_file, delete_file, move_file, split_path
 from ..base.image import check_pic, cut_thumb_to_poster
 from ..base.utils import get_used_time
@@ -25,7 +26,7 @@ from .json_data import ImageContext, JsonData, LogBuffer
 from .utils import convert_half
 
 
-def get_actorname(number: str) -> tuple[bool, str]:
+def get_actorname(number: str) -> TUPLE[bool, str]:
     # 获取真实演员名字
     url = f"https://av-wiki.net/?s={number}"
     result, res = get_html(url)
@@ -61,7 +62,7 @@ def get_yesjav_title(movie_number: str) -> str:
     return movie_title
 
 
-def google_translate(title: str, outline: str) -> tuple[str, str, Optional[str]]:
+def google_translate(title: str, outline: str) -> TUPLE[str, str, Optional[str]]:
     e1 = None
     e2 = None
     if title:
@@ -71,7 +72,7 @@ def google_translate(title: str, outline: str) -> tuple[str, str, Optional[str]]
     return title, outline, e1 or e2
 
 
-def _google_translate(msg: str) -> tuple[str, str]:
+def _google_translate(msg: str) -> TUPLE[str, str]:
     try:
         msg_unquote = urllib.parse.unquote(msg)
         url = f"https://translate.google.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q={msg_unquote}"
@@ -102,7 +103,7 @@ def download_file_with_filepath(
     return False
 
 
-def _mutil_extrafanart_download_thread(task: tuple[JsonData, str, str, str, str]) -> bool:
+def _mutil_extrafanart_download_thread(task: TUPLE[JsonData, str, str, str, str]) -> bool:
     json_data, extrafanart_url, extrafanart_file_path, extrafanart_folder_path, extrafanart_name = task
     if download_file_with_filepath(extrafanart_url, extrafanart_file_path, extrafanart_folder_path):
         if check_pic(extrafanart_file_path):

@@ -558,7 +558,7 @@ class MyMAinWindow(QMainWindow):
                 signal.show_scrape_info()
                 self.Ui.label_show_version.setCursor(Qt.OpenHandCursor)  # 设置鼠标形状为十字形
                 version_info = f'基于 MDC-GUI 修改 · 当前版本: {self.localversion} （ <font color="red" >最新版本是: {latest_version}，请及时更新！🚀 </font>）'
-                download_link = ' ⬇️ <a href="https://github.com/sqzw-x/mdcx/releases">下载新版本</a>'
+                download_link = ' ⬇️ <a href="https://github.com/braumhuang/mdcx/releases">下载新版本</a>'
             else:
                 version_info = f'基于 MDC-GUI 修改 · 当前版本: {self.localversion} （ <font color="green">你使用的是最新版本！🎉 </font>）'
 
@@ -610,9 +610,9 @@ class MyMAinWindow(QMainWindow):
     def label_version_clicked(self, test):
         try:
             if "🔍" in self.new_version:
-                webbrowser.open("https://github.com/sqzw-x/mdcx/releases/tag/daily_release")
+                webbrowser.open("https://github.com/braumhuang/mdcx/releases")
             else:
-                webbrowser.open("https://github.com/sqzw-x/mdcx/releases")
+                webbrowser.open("https://github.com/braumhuang/mdcx/releases")
         except Exception:
             signal.show_traceback_log(traceback.format_exc())
 
