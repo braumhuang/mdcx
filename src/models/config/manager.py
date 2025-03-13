@@ -134,7 +134,7 @@ class ConfigManager(ManualConfig):
 
 @dataclass
 class ConfigSchema:
-    version: int = 120240924
+    version: int = ManualConfig.LOCAL_VERSION
 
     # media
     media_path: str = r""

@@ -8,6 +8,7 @@ import shutil
 import time
 import traceback
 
+from bridge.typing import LIST, SET, DICT, TUPLE
 from ..base.file import copy_file, delete_file, move_file, read_link, split_path
 from ..base.number import (
     deal_actor_more,
@@ -263,7 +264,7 @@ def move_torrent(
             LogBuffer.log().write("\n 🍀 Torrent done!")
 
 
-def check_file(json_data: JsonData, file_path: str, file_escape_size: float) -> tuple[bool, JsonData]:
+def check_file(json_data: JsonData, file_path: str, file_escape_size: float) -> TUPLE[bool, JsonData]:
     if os.path.islink(file_path):
         file_path = read_link(file_path)
         if "check_symlink" not in config.no_escape:
@@ -935,7 +936,7 @@ def _generate_file_name(file_path: str, json_data: JsonData) -> str:
 
 def get_output_name(
     json_data: JsonData, file_path: str, success_folder: str, file_ex: str
-) -> tuple[str, str, str, str, str, str, str, str, str, str]:
+) -> TUPLE[str, str, str, str, str, str, str, str, str, str]:
     # =====================================================================================更新输出文件夹名
     folder_new_path = _get_folder_path(file_path, success_folder, json_data)
     folder_new_path = _deal_path_name(folder_new_path)
@@ -1084,7 +1085,7 @@ def newtdisk_creat_symlink(copy_flag: bool, netdisk_path: str = "", local_path: 
         signal.reset_buttons_status.emit()
 
 
-def movie_lists(escape_folder_list: list[str], movie_type: str, movie_path: str) -> list[str]:
+def movie_lists(escape_folder_list: LIST[str], movie_type: str, movie_path: str) -> LIST[str]:
     start_time = time.time()
     total = []
     file_type = movie_type.split("|")
@@ -1191,7 +1192,7 @@ def movie_lists(escape_folder_list: list[str], movie_type: str, movie_path: str)
     return total
 
 
-def get_file_info(file_path: str, copy_sub: bool = True) -> tuple[JsonData, str, str, str, str, list[str], str, str]:
+def get_file_info(file_path: str, copy_sub: bool = True) -> TUPLE[JsonData, str, str, str, str, LIST[str], str, str]:
     json_data = new_json_data()
     json_data["version"] = config.version
     movie_number = ""
@@ -1546,7 +1547,7 @@ def get_file_info(file_path: str, copy_sub: bool = True) -> tuple[JsonData, str,
     return json_data, movie_number, folder_path, file_name, file_ex, sub_list, file_show_name, file_show_path
 
 
-def get_movie_list(file_mode: FileMode, movie_path: str, escape_folder_list: list[str]) -> list[str]:
+def get_movie_list(file_mode: FileMode, movie_path: str, escape_folder_list: LIST[str]) -> LIST[str]:
     movie_list = []
     if file_mode == FileMode.Default:  # 刮削默认视频目录的文件
         movie_path = convert_path(movie_path)
@@ -1652,7 +1653,7 @@ def deal_old_files(
     poster_final_path: str,
     thumb_final_path: str,
     fanart_final_path: str,
-) -> tuple[bool, bool]:
+) -> TUPLE[bool, bool]:
     """
     处理本地已存在的thumb、poster、fanart、nfo
     """

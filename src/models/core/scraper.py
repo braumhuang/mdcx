@@ -8,6 +8,7 @@ from typing import Optional
 
 from PyQt5.QtWidgets import QMessageBox
 
+from bridge.typing import LIST, SET, DICT, TUPLE
 from ..base.file import copy_file, move_file, read_link, split_path
 from ..base.utils import convert_path, get_current_time, get_real_time, get_used_time
 from ..config.manager import config, manager
@@ -52,7 +53,7 @@ from .utils import (
 from .web import extrafanart_download, fanart_download, poster_download, thumb_download, trailer_download
 
 
-def _scrape_one_file(file_path: str, file_info: tuple, file_mode: FileMode) -> tuple[bool, JsonData]:
+def _scrape_one_file(file_path: str, file_info: tuple, file_mode: FileMode) -> TUPLE[bool, JsonData]:
     # 处理单个文件刮削
     # 初始化所需变量
     start_time = time.time()
@@ -347,7 +348,7 @@ def _scrape_one_file(file_path: str, file_info: tuple, file_mode: FileMode) -> t
     return True, json_data
 
 
-def _scrape_exec_thread(task: tuple[str, int, int]) -> None:
+def _scrape_exec_thread(task: TUPLE[str, int, int]) -> None:
     # 获取顺序
     with Flags.lock:
         file_path, count, count_all = task
@@ -550,7 +551,7 @@ def _scrape_exec_thread(task: tuple[str, int, int]) -> None:
     LogBuffer.clear_thread()
 
 
-def scrape(file_mode: FileMode, movie_list: Optional[list[str]]) -> None:
+def scrape(file_mode: FileMode, movie_list: Optional[LIST[str]]) -> None:
     Flags.reset()
     if movie_list is None:
         movie_list = []
@@ -691,7 +692,7 @@ def scrape(file_mode: FileMode, movie_list: Optional[list[str]]) -> None:
         signal.exec_exit_app.emit()
 
 
-def start_new_scrape(file_mode: FileMode, movie_list: Optional[list[str]] = None) -> None:
+def start_new_scrape(file_mode: FileMode, movie_list: Optional[LIST[str]] = None) -> None:
     signal.change_buttons_status.emit()
     signal.exec_set_processbar.emit(0)
     try:
@@ -789,7 +790,7 @@ def move_sub(
     folder_old_path: str,
     folder_new_path: str,
     file_name: str,
-    sub_list: list[str],
+    sub_list: LIST[str],
     naming_rule: str,
 ) -> None:
     copy_flag = False

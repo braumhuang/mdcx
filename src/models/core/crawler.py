@@ -8,6 +8,7 @@ from typing import Any, Callable
 
 import langid
 
+from bridge.typing import LIST, SET, DICT, TUPLE
 from ..base.number import get_number_letters, is_uncensored
 from ..config.manager import config
 from ..crawlers import (
@@ -56,13 +57,13 @@ from .json_data import JsonData, LogBuffer
 
 
 def _get_new_website_list(
-    field_website_list: list[str],
-    number_website_list: list[str],
+    field_website_list: LIST[str],
+    number_website_list: LIST[str],
     file_number: str,
     short_number: str,
     field: str,
     all: bool = False,
-) -> list[str]:
+) -> LIST[str]:
     whole_fields = config.whole_fields  # 继续补全的字段
     field_website_list = [i for i in field_website_list if i.strip()]  # 去空
     number_website_list = [i for i in number_website_list if i.strip()]  # 去空
@@ -124,7 +125,7 @@ def _get_new_website_list(
     return same_list
 
 
-def _deal_some_list(field: str, website: str, same_list: list[str]) -> list[str]:
+def _deal_some_list(field: str, website: str, same_list: LIST[str]) -> LIST[str]:
     if website not in same_list:
         same_list.append(website)
     if field in ["title", "outline", "thumb", "poster", "trailer", "extrafanart"]:
@@ -143,7 +144,7 @@ def _call_crawler(
     short_number: str,
     mosaic: str,
     org_language: str,
-) -> dict[str, Any]:
+) -> DICT[str, Any]:
     """
     获取某个网站数据
     """
@@ -154,7 +155,7 @@ def _call_crawler(
     # 259LUXU-1111， mgstage 和 avsex 之外使用 LUXU-1111（素人番号时，short_number有值，不带前缀数字；反之，short_number为空)
     if short_number and website != "mgstage" and website != "avsex":
         file_number = short_number
-    _: dict[str, Callable] = {
+    _: DICT[str, Callable] = {
         "official": official.main,
         "iqqtv": iqqtv_new.main,
         "avsex": avsex.main,
@@ -278,7 +279,7 @@ def _call_crawler(
 
 def _decide_websites(
     json_data: JsonData,
-    number_website_list: list[str],
+    number_website_list: LIST[str],
 ) -> JsonData:
     """
     获取一组网站的数据：按照设置的网站组，请求各字段数据，并返回最终的数据
@@ -565,9 +566,9 @@ def _decide_websites(
 
 
 def _deal_each_field(
-    all_json_data: dict[str, dict[str, Any]],
+    all_json_data: DICT[str, DICT[str, Any]],
     json_data: JsonData,
-    website_list: list[str],
+    website_list: LIST[str],
     field_name: str,
     field_cnname: str,
     field_language: str,
@@ -660,9 +661,9 @@ def _deal_each_field(
 
 
 def _call_crawlers(
-    all_json_data: dict[str, dict[str, Any]],
+    all_json_data: DICT[str, DICT[str, Any]],
     json_data: JsonData,
-    website_list: list[str],
+    website_list: LIST[str],
     field_name: str,
     field_cnname: str,
     field_language: str,
